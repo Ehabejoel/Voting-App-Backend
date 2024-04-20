@@ -1,17 +1,17 @@
 from flask import Blueprint, request
 
-from controllers.candidates import *
+from controllers.votes import *
 from models.exceptions import ModelNotFoundError
 
 from .utils import parse_request_data
 from .responses import JSONResponse
 
-candidates_view = Blueprint('candidates', __name__, url_prefix='/candidates')
+candidates_view = Blueprint('votes', __name__, url_prefix='/votes')
 
-@candidates_view.route('/', methods=['GET', 'POST'])
+@votes_view.route('/', methods=['GET', 'POST'])
 def list_or_create():
     if request.method == 'GET':
-        return get_all_candidates()
+        return get_all_votes()
     else:
         submitted_data = parse_request_data(requests=request)
 
@@ -20,11 +20,11 @@ def list_or_create():
 
         return response
 
-@subjects_view.route('/<id>', methods=['GET', 'PATCH', 'PUT', 'DELETE'])
-def get_or_update_instance(id):
+@subjects_view.route('/<id_vote>', methods=['GET', 'PATCH', 'PUT', 'DELETE'])
+def get_or_update_instance(id_vote):
     instance = None
     try:
-        instance = get_subject_with_id(id, return_object=True)
+        instance = get_subject_with_id_vote(id_vote, return_object=True)
     except ModelNotFoundError:
         return JSONResponse("<h1>Instance not found</h1>", status=404)
     
@@ -32,6 +32,6 @@ def get_or_update_instance(id):
         return instance
     elif request.method == 'PATCH':
         data = parse_request_data(request)
-        return JSONResponse(data=save_subject(name=data['name'], id=instance.id), status=201)
+        return JSONResponse(data=save_subject(name=data['name'], id=instance.id_vote), status=201)
     elif request.method == 'DELETE':
-        return JSONResponse(data=delete_subject(id), status=201)
+        return JSONResponse(data=delete_subject(id_vote), status=201)

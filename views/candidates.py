@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from controllers.candidates import *  
-from models.exceptions import ModelNotFoundError
+from models.exceptions import ModelNotFoundError   
 
 from .utils import parse_request_data   
 from .responses import JSONResponse, instance_not_found_response

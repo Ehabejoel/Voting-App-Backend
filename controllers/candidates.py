@@ -5,7 +5,7 @@ from models.candidates import candidate
 
 #from werkzeug.utils import secure_filename
 
-from constants import UPLOAD_FOLDER
+from constants import UPLOAD_FOLDER   
 
 def get_all_candidates(return_objects=False):
     """
