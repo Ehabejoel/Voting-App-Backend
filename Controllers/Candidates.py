@@ -18,7 +18,7 @@ def get_all_candidates(return_objects=False):
         list_of_objects = [
             obj.toJSON() for obj in objects
         ]
-        return list_of_objects
+        return list_of_objects 
     
     return objects    
 
